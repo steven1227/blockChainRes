@@ -1,0 +1,173 @@
+/* Header */
+.large-header {
+	position: relative;
+	width: 100%;
+	background: #333;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center center;
+	z-index: 1;
+}
+
+#large-header {
+	background-image: url('https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg');
+}
+
+.main-title {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	color: #f9f1e9;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate3d(-50%,-50%,0);
+	transform: translate3d(-50%,-50%,0);
+}
+
+.cardContainer{
+  position: fixed;
+  top:10%;
+  left: 50%;
+-webkit-transform: translateX(-50%);
+transform: translateX(-50%)
+
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    overflow: auto;
+
+
+}
+.card{
+  width:70%;
+  margin: auto;
+  margin-bottom: 3em;
+}
+.hvr-grow{-webkit-transform:perspective(1px) translateZ(0);transform:perspective(1px) translateZ(0);box-shadow:0 0 1px rgba(0,0,0,0);-webkit-transition-duration:.3s;transition-duration:.3s;-webkit-transition-property:transform;transition-property:transform}.hvr-grow:active,.hvr-grow:focus,.hvr-grow:hover{-webkit-transform:scale(1.1);transform:scale(1.1)}
+
+
+.fx-wrap .card {
+  perspective: 1000px;
+  width: 324px;
+  height: 204px;
+  position: relative;
+}
+.fx-wrap .card>.front,
+.fx-wrap .card>.back {
+  transition: transform 3s, z-index 3s 0s, box-shadow 3s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  will-change: transform;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 4px;
+  background-color: #fff;
+  backface-visibility: hidden;
+}
+
+.fx-wrap .card>.front>*,
+.fx-wrap .card>.back>* {
+  height: 100%;
+}
+.fx-wrap .card>.front .image,
+.fx-wrap .card>.back .image {
+  float: left;
+}
+.fx-wrap .card>.front .text,
+.fx-wrap .card>.back .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 216px;
+  float: right;
+}
+.fx-wrap .card>.front .text button.flip,
+.fx-wrap .card>.back .text button.flip {
+  border-radius: 9999em;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  border: 0;
+  background-color: #ddd;
+  color: #fff;
+  font-size: 1.5em;
+  float: right;
+  flex: 1;
+  outline: 0;
+  transition: background-color 0.3s ease-in, transform 0.4s;
+  transition-delay: 0.1s;
+}
+.fx-wrap .card>.front .text button.flip:hover{
+  background-color: #16a8cf;
+}
+.fx-wrap .card>.front .text button.flip:focus,
+.fx-wrap .card>.back .text button.flip:focus {
+  transform: rotate(-360deg);
+}
+.fx-wrap .card>.front .text p,
+.fx-wrap .card>.back .text p {
+  margin: 30px auto;
+  width: 80%;
+  flex: 2;
+}
+.fx-wrap .card>.front .text a,
+.fx-wrap .card>.back .text a {
+  text-transform: uppercase;
+  margin: 10px auto;
+  text-align: right;
+  width: 80%;
+  display: block;
+  flex: 1;
+}
+.fx-wrap .card>.front .image,
+.fx-wrap .card>.back .image {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-size: cover;
+  width: 108px;
+  background-color: #f5f5f5;
+  position: relative;
+}
+.im1{
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZIbTuWRSqUVqo_Qdo4O9PKBwhRuwHBcmDdJlDez5oSwdXel-7pw");
+}
+.im2{
+  background-image: url("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQJW58uxpzvVMvRwWjeU840KqAKGhLNyMT0F5Qh4cgD9rUCihYh");
+
+}
+.fx-wrap .card>.front .image .heading,
+.fx-wrap .card>.back .image .heading {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 10px;
+  font-size: 1.5em;
+  text-align: right;
+  color: #fff;
+  text-transform: uppercase;
+}
+.fx-wrap .card>.front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+
+.fx-wrap .card.flip-it>.front {
+  transform: rotateY(-180deg);
+  z-index: 1;
+}
+
+.labelRating{
+  margin-left: 90%;
+}
+
+@media only screen and (max-width : 768px) {
+	.demo-1 .main-title {
+		font-size: 3em;
+	}
+}
