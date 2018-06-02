@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="greensock.js" charset="utf-8"></script>
+    <script src="tweenlite.js" charset="utf-8"></script>
+
+    <title></title>
+  </head>
+  <body>
+    <div id="large-header" class="large-header">
+      <canvas id="demo-canvas"></canvas>
+      <!-- <h1 class="main-title">Connect <span class="thin">Three</span></h1> -->
+    </div>
+
+<div class="formContainer">
+<form action="javascript:submitContactForm(contact_name.value, contact_email.value, contact_message.value)" id="contact_form" class="center">
+  <h2>Contact us</h2>
+  <input type="text" id="contact_name" placeholder="Name" required>
+  <input type="email" id="contact_email" placeholder="Email" required>
+  <textarea name="message" id="contact_message" rows="6" placeholder="Enter a message mate"></textarea>
+  <button type="submit" id="contact_btn">Send Message</button>
+</form>
+</div>
+
+
+<script src="feedback.js" charset="utf-8"></script>
+  </body>
+</html>
