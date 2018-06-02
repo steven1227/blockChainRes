@@ -26,14 +26,6 @@ var Restaurant = function (text) {
 Restaurant.prototype = {
   toString: function () {
     return JSON.stringify(this);
-  },
-  getAvgScore: function () {
-    var sum = 0;
-    for (var i = 0; i < elmt.length; i++) {
-      sum += parseInt(elmt[i], 10); //don't forget to add the base
-    }
-    var avg = sum / elmt.length;
-    return avg
   }
 };
 
@@ -68,7 +60,7 @@ RestCommentContract.prototype = {
       new_res = restaurant_data;
     } else {
       this.arrayMap.set(this.size, res_name);
-      this.size += 1;
+      this.size = this.size + 1;
     }
     new_res.name = res_name;
     new_res.comments.push(new Comments(from, content, star));
@@ -80,31 +72,42 @@ RestCommentContract.prototype = {
 
   len: function () {
     return {
-      "code": 0,
-      "data": {
-        "size": this.size
-      }
+      "size": this.size
     };
   },
 
   read: function (res_name) {
-    if (res_name == "") {
+    if (!res_name) {
       throw new Error('empty restaurant');
+    }
+    if (!this.data.get(res_name)) {
+      return {}
     }
     return this.data.get(res_name);
   },
 
-  readsroce: function (res_name) {
-    if (res_name == "") {
+  readscore: function (res_name) {
+    if (!res_name) {
       throw new Error('empty restaurant');
     }
     var restaurant_data = this.data.get(res_name);
+    if (!restaurant_data) {
+      return {}
+    }
+    var sum = 0;
+    for (var i = 0; i < restaurant_data.comments.length; i++) {
+      sum = sum + restaurant_data.comments[i].star;
+    }
+    if (restaurant_data.comments.length == 0) {
+      return {
+        "name": restaurant_data.name,
+        "avg_sorce": 0
+      };
+    }
+    var avg_score = sum / restaurant_data.comments.length
     return {
-      "code": 0,
-      "data": {
-        "restaurant": restaurant_data.name,
-        "avg_sorce": restaurant_data.getAvgScore
-      }
+      "name": restaurant_data.name,
+      "avg_sorce": avg_score
     };
   },
 
@@ -115,10 +118,7 @@ RestCommentContract.prototype = {
       var object = this.data.get(key);
       result[key] = object;
     }
-    return {
-      "code": 0,
-      "data": result
-    }
-  }
+    return result
+  },
 };
 module.exports = RestCommentContract;
