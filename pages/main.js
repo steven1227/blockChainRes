@@ -184,17 +184,97 @@
         return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
     }
 
-
-
     // api server 
-    var dappContactAddress = "";
+    const host = "https://testnet.nebulas.io";
+    const endpoint = "/v1/user";
+    const call_api = "/call";
+    const send_raw_trans = "/rawtransaction";
+    const dappContactAddress = "";
+    var serialNumber; //交易序列号
+    var intervalQuery; //定时查询交易结果
+
     var nebulas = require("nebulas");
+    var HttpRequest = require("nebulas").HttpRequest;
+    var Account = require("nebulas").Account;
     var NebPay = require("nebpay");
     var nebPay = new NebPay();
     var neb = new nebulas.Neb();
+    neb.setRequest(new HttpRequest(host));
     var account = "";
 
+    function sendTrans(func_name, args) {
+        var to = dappAddress;   //Dapp的合约地址
+        var value = "0";
+        var callFunction = func_name //调用的函数名称
+        var callArgs = args  //参数格式为参数数组的JSON字符串, 比如'["arg"]','["arg1","arg2]'        
+        var options = {
+            goods: {        //商品描述
+                name: "example"
+            },
+            //callback 是交易查询服务器地址,
+            //callback: NebPay.config.mainnetUrl //在主网查询(默认值)
+            callback: NebPay.config.testnetUrl //在测试网查询
+        }
 
+        //发送交易(发起智能合约调用)
+        serialNumber = nebPay.call(to, value, callFunction, callArgs, options);
+
+        //设置定时查询交易结果
+        intervalQuery = setInterval(function () {
+            funcIntervalQuery();
+        }, 10000); //建议查询频率10-15s,因为星云链出块时间为15s,并且查询服务器限制每分钟最多查询10次。
+    }
+
+    function call(form_addr, to_addr, nonce, gasPrice, gasLimit, func_name, args_str) {
+        var rlt = neb.api.call({
+            chainID: 1,
+            from: form_addr,
+            to: to_addr,
+            value: 0,
+            nonce: nonce,
+            gasPrice: gasPrice,
+            gasLimit: gasLimit,
+            contract: {
+                function: func_name,
+                args: args_str
+            }
+        }).then(function (tx) {
+            console.log(tx)
+        });
+    }
+
+    function funcIntervalQuery() {
+
+        var options = {
+            goods: {        //商品描述
+                name: "example"
+            },
+            //callback 是交易查询服务器地址,
+            //callback: NebPay.config.mainnetUrl //在主网查询(默认值)
+            callback: NebPay.config.testnetUrl //在测试网查询
+        }
+
+        //queryPayInfo的options参数用来指定查询交易的服务器地址,(如果是主网可以忽略,因为默认服务器是在主网查询)
+        nebPay.queryPayInfo(serialNumber, options)   //search transaction result from server (result upload to server by app)
+            .then(function (resp) {
+                console.log("tx result: " + resp)   //resp is a JSON string
+                var respObject = JSON.parse(resp)
+                //code==0交易发送成功, status==1交易已被打包上链
+                if (respObject.code === 0 && respObject.data.status === 1) {
+                    //交易成功,处理后续任务....
+                    clearInterval(intervalQuery)    //清除定时查询
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+    call("n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", "n1tsVcut2PN9fhmur7CUu61ao4MGou6L9U6", 22, 1000000, 2000000, "readall", "");
+    
+    var result_json = [];
+    // nep.api.call().then(function(resp){
+    //     result_json
+    // })
     var fakeJson = [
         {
             result:
@@ -321,14 +401,15 @@
     }
 
 
+    $('#resrating').barrating({
+        theme: 'fontawesome-stars'
+    });
+
     $('#addres').click(function () {
         $('#newResModal').modal('toggle');
     });
 
 })();
-
-
-
 
 //search animation
 $(document).ready(function () {
@@ -385,7 +466,5 @@ $(document).ready(function () {
             });
         }, backDelay);
     });
+
 });
-
-
-
