@@ -205,7 +205,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,"content":"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:2,"content":"好吃"}
             ]
           }
         },
@@ -224,7 +224,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:3,content:"好吃"}
             ]
           }
         },
@@ -243,7 +243,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,"content":"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:4,"content":"好吃"}
             ]
           }
         },
@@ -252,7 +252,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:3,content:"好吃"}
             ]
           }
         }
@@ -272,7 +272,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:2,content:"好吃"}
             ]
           }
         },
@@ -281,7 +281,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:4,content:"好吃"}
             ]
           }
         },
@@ -290,7 +290,7 @@
           {
             name:"大董",
             comments:[
-              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:1,content:"好吃"}
             ]
           }
         }
@@ -304,9 +304,19 @@
         $('#commentModal').modal('toggle');
       });
       var headerNode  = $("<header></header>").addClass('clearfix');
-      var labelNode = $("<span></span>");
-      labelNode.text(fakeJson[i].result.comments[0].star).addClass("label label-success labelRating");
+      var labelNode = $('<div class="stars-outer"><div class="stars-inner"></div></div>').addClass("labelRating");
       headerNode.append(labelNode);
+
+
+
+      const starTotal = 5;  
+      const starPercentage = (fakeJson[i].result.comments[0].star/ starTotal) * 100;
+      const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+      labelNode.find(".stars-inner").width(starPercentageRounded); 
+      
+
+
+
       var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
       var divNode2 = $("<div></div>").addClass('image');
       var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
