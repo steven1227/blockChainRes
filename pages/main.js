@@ -182,8 +182,11 @@
         return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
     }
     var counter = 0;
+
+
+
+
     var fakeJson = [
-
         {
           result:
           {
@@ -203,7 +206,34 @@
             ]
           }
         },
+        {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+            ]
+          }
+        },
+                {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,"content":"好吃"}
+            ]
+          }
+        },
 
+        {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,"content":"好吃"}
+            ]
+          }
+        },
         {
           result:
           {
@@ -213,40 +243,136 @@
             ]
           }
         }
+        ,
+        {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+            ]
+          }
+        }
+        ,
+        {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+            ]
+          }
+        },
+               {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+            ]
+          }
+        },
+               {
+          result:
+          {
+            name:"大董",
+            comments:[
+              {author:"n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH",star:5,content:"好吃"}
+            ]
+          }
+        }
     ]
-
+    
     for (var i = 0; i < fakeJson.length; i++) {
-
       var nameNode = $("<p></p>").text(fakeJson[i].result.name);
-
-      var submitNode = $("<a>");
-      submitNode.attr("href","#").text("Submit").addClass("hvr-grow");
-
+      var submitNode = $("<button></button>");
+      submitNode.text("评价").addClass("btn btn-primary btn-comment");
+      submitNode.click(function(){
+        $('#commentModal').modal('toggle');
+      });
       var headerNode  = $("<header></header>").addClass('clearfix');
-
       var labelNode = $("<span></span>");
       labelNode.text(fakeJson[i].result.comments[0].star).addClass("label label-success labelRating");
-
       headerNode.append(labelNode);
-
       var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
       var divNode2 = $("<div></div>").addClass('image');
       var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
-
       var divNode4 = $("<div></div>").addClass('card').append(divNode3);
-
-
-      var divNode5 = $("<div></div>").addClass('fx-wrap').append(divNode4);
-
-      if (i%2 == 0) {
-          divNode2.addClass('im1')
+      var divNode5 = $("<div data-aos='zoom-in'></div>").addClass('fx-wrap').append(divNode4);
+      if (i%3 == 0) {
+          divNode2.addClass('im1 ');
           $(".col1").append(divNode5);
-      }else {
-          divNode2.addClass('im2')
-        $(".col2").append(divNode5);
+      }else if(i%3 == 1){
+          divNode2.addClass('im2');
+          $(".col2").append(divNode5);
+      }else{
+           divNode2.addClass('im3');
+          $(".col3").append(divNode5);
       }
-
-
     }
 
+
+      $('#addres').click(function(){
+        $('#newResModal').modal('toggle');
+      });
+
 })();
+
+$(document).ready(function() {
+  var $search = $(".search"),
+    $input = $(".search-input"),
+    $close = $(".search-close"),
+    $svg = $(".search-svg"),
+    $path = $(".search-svg__path")[0],
+    initD = $svg.data("init"),
+    midD = $svg.data("mid"),
+    finalD = $svg.data("active"),
+    backDelay = 400,
+    midAnim = 200,
+    bigAnim = 400,
+    animating = false;
+
+  $(document).on("click", ".search:not(.active)", function() {
+    if (animating) return;
+    animating = true;
+    $search.addClass("active");
+
+    Snap($path).animate({ path: midD }, midAnim, mina.backin, function() {
+      Snap($path).animate(
+        { path: finalD },
+        bigAnim,
+        mina.easeinout,
+        function() {
+          $input.addClass("visible");
+          $input.focus();
+          $close.addClass("visible");
+          animating = false;
+        }
+      );
+    });
+  });
+
+  $(document).on("click", ".search-close", function() {
+    if (animating) return;
+    animating = true;
+    $input.removeClass("visible");
+    $close.removeClass("visible");
+    $search.removeClass("active");
+
+    setTimeout(function() {
+      Snap($path).animate({ path: midD }, bigAnim, mina.easeinout, function() {
+        Snap($path).animate(
+          { path: initD },
+          midAnim,
+          mina.easeinout,
+          function() {
+            animating = false;
+          }
+        );
+      });
+    }, backDelay);
+  });
+});
+
+
+
