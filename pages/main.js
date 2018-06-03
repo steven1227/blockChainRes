@@ -187,12 +187,18 @@
 
     var dappContactAddress = "";
     var nebulas = require("nebulas");
+    var Account = require("nebulas").Account;
     var NebPay = require("nebpay");
     var nebPay = new NebPay();
     var neb = new nebulas.Neb();
-    var account = "";
+    var account = Account;
+    neb.setRequest(new nebulas.HttpRequest(""));
 
 
+    var result_json = []; 
+    // nep.api.call().then(function(resp){
+    //     result_json
+    // })
     var fakeJson = [
         {
           result:
@@ -318,7 +324,11 @@
       }
     }
 
-
+      
+      $('#resrating').barrating({
+        theme: 'fontawesome-stars'
+      });
+  
       $('#addres').click(function(){
         $('#newResModal').modal('toggle');
       });
