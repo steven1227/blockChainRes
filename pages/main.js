@@ -181,9 +181,16 @@
     function getDistance(p1, p2) {
         return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
     }
-    var counter = 0;
 
 
+
+
+    var dappContactAddress = "";
+    var nebulas = require("nebulas");
+    var NebPay = require("nebpay");
+    var nebPay = new NebPay();
+    var neb = new nebulas.Neb();
+    var account = "";
 
 
     var fakeJson = [
@@ -318,6 +325,10 @@
 
 })();
 
+
+
+
+//search animation
 $(document).ready(function() {
   var $search = $(".search"),
     $input = $(".search-input"),
