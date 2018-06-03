@@ -339,6 +339,10 @@
         theme: 'fontawesome-stars'
       });
   
+      $('#resrating2').barrating({
+        theme: 'fontawesome-stars'
+      });
+
       $('#addres').click(function(){
         $('#newResModal').modal('toggle');
       });
