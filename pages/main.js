@@ -1,5 +1,6 @@
 (function () {
 
+    $('.fadeMe').hide();
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
     var result_json = [];
     var res_star;
@@ -261,7 +262,7 @@
                 var respObject = JSON.parse(resp)
                 //code==0交易发送成功, status==1交易已被打包上链
                 if (respObject.code === 0 && respObject.data.status === 1) {
-                    //交易成功,处理后续任务....
+                    console.log('成功');
                     clearInterval(intervalQuery)    //清除定时查询
                 }
             })
@@ -271,17 +272,17 @@
     }
 
     function readall() {
+         $('.fadeMe').show();
         var fakeJson = [];
         var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "readall", "",
             function (resp) {
                 var rlt_json = JSON.parse(resp.result);
                 for (var key in rlt_json) {
-                    //console.log(rlt_json[key])
-                    console.log(fakeJson)
                     fakeJson.push({
                         "result": {
                             "name": rlt_json[key].name,
-                            "avg_score": Math.round(rlt_json[key].total / rlt_json[key].comments.length)
+                            "avg_score": Math.round(rlt_json[key].total / rlt_json[key].comments.length),
+                            "total":rlt_json[key].comments.length
                         }
                     });
                 }
@@ -289,22 +290,17 @@
             });
     }
 
-    function comment() {
-        var res_name = document.getElementById("resname").value;
-        var comment = document.getElementById("content").value;
-        var star = document.getElementsByClassName("br-current-rating").value;
-        args_str = '["' + res_name + '","' + comment + '",' + star + ']';
-
-        _sendTrans("comment", args_str)
-    }
 
     function read(res_name) {
-        var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "readall", "",
+        var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "read", '["' + res_name + '"]',
             function (resp) {
-                var rlt_json = JSOn.parse(resp.result);
-                console.log(rlt_json);
+                var rlt_json = JSON.parse(resp.result);
+                renderList(rlt_json.comments);
             });
     }
+
+
+    /*read all data in blockchain*/
     readall();
 
     function render(fakeJson) {
@@ -312,10 +308,13 @@
         for (var i = 0; i < fakeJson.length; i++) {
             var nameNode = $("<p></p>").text(fakeJson[i].result.name);
             var submitNode = $("<button></button>");
+            const title = fakeJson[i].result.name;
             submitNode.text("评价").addClass("btn btn-primary btn-comment");
             submitNode.click(function () {
                 event.stopPropagation();
                 $('#commentModal').modal('toggle');
+                $('#commentModal').data('key_name',title);
+                $('#resname2').val(title);
             });
             var headerNode = $("<header></header>").addClass('clearfix');
             var labelNode = $('<div class="stars-outer"><div class="stars-inner"></div></div>').addClass("labelRating");
@@ -324,20 +323,17 @@
             const starPercentage = (fakeJson[i].result.avg_score / starTotal) * 100;
             const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
             labelNode.find(".stars-inner").width(starPercentageRounded);
-            var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
+
+            var numberNode = $('<div>'+fakeJson[i].result.total+'条评价</div>').addClass("labelTotal");
+            var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(numberNode).append(nameNode).append(submitNode);
             var divNode2 = $("<div></div>").addClass('image');
             var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
             divNode3.on('click', function (event) {
                 event.preventDefault();
-                var fakeComments = [{ username: "aaa", comments: "bbb" }, { username: "ccc", comments: "ddd" }]
-                $('.shabi').modal('show');
-                for (var j = 0; j < fakeComments.length; j++) {
-                    var userHeader = $("<h5></h5>").prepend('<img src="images/faketou.png" width="80px" height="50px" />').append(fakeComments[j].username).addClass('text-center');
-                    var userComment = $("<p></p>").text(fakeComments[j].comments);
-                    $(".shabi .modal-body").append(userHeader).append(userComment).append("<hr>");
-
-                }
-                /* Act on the event */
+                var commentList_data = []
+                 $('.fadeMe').show();
+                 $('#commentModal').data('key_name',title);
+                 read(title);
             });
             var divNode4 = $("<div></div>").addClass('card').append(divNode3);
             var divNode5 = $("<div data-aos='zoom-in'></div>").addClass('fx-wrap').append(divNode4);
@@ -352,6 +348,29 @@
                 $(".col3").append(divNode5);
             }
         }
+        $('.fadeMe').hide();
+    }
+
+
+
+    function renderList(fakeComments){
+          $(".shabi .modal-body").empty();
+          for (var j = 0; j < fakeComments.length; j++) {
+              var userHeader = $("<div></div>").prepend('<img src="images/faketou.png" width="80px" height="50px" />').addClass('outerwrapper');
+              var labelNode = $('<div class="stars-outer" style="margin-top: 5px"><div class="stars-inner"></div></div>');
+              const starTotal = 5;
+              const starPercentage = (fakeComments[j].star / starTotal) * 100;
+              const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+              labelNode.find(".stars-inner").width(starPercentageRounded);
+
+              var userNamae = $("<div>"+fakeComments[j].author+"</div>");
+              var innerWrapper = $("<div></div>").append(userNamae).append(labelNode).addClass("innerWrapper");
+              userHeader.append(innerWrapper);
+              var userComment = $("<p style='padding-left: 25px;padding-top: 25px;'></p>").text(fakeComments[j].content);
+              $(".shabi .modal-body").append(userHeader).append(userComment).append("<hr>");
+          }
+           $('.fadeMe').hide();
+          $('#commentlist').modal('show');
     }
 
 
@@ -391,12 +410,20 @@
         $('#sidebar').toggleClass('visible');
     });
 
+
+    $('#new-comment-2').click(function(){
+      $('#commentModal').modal('toggle');
+       $('#commentlist').modal('hide');
+        // $('#commentlist').reset();
+      $('#resname2').val($('#commentModal').data('key_name'));
+    })
+
     $('#comment').on('click', function () {
         //todo get data from input form;
         var res_name = document.getElementById("resname2").value;
         var comment = document.getElementById("content2").value;
-        var args_str = '["' + res_name + '","' + comment + '",' + res_star+']';
-        comment(args_str);
+        var args_str = '["' + res_name + '","' + comment + '",' + res_star2+']';
+        _sendTrans("comment",args_str);
     });
 
     $('#new-comment').on('click', function () {
@@ -404,7 +431,7 @@
         var res_name = document.getElementById("resname").value;
         var comment = document.getElementById("content").value;
         var args_str = '["' + res_name + '","' + comment + '",' + res_star + ']';
-        comment(args_str);
+        _sendTrans("comment",args_str);
     });
 
 })();

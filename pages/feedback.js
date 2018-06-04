@@ -1,5 +1,11 @@
 (function () {
 
+
+    $('#contact_btn').click(function(){
+        window.open('mailto:l415918629@sohu.com?subject=Question&body='+$('#contact_message').val());
+    })
+ 
+
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
 
     // Main
