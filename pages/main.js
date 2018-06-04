@@ -2,6 +2,8 @@
 
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
     var result_json = [];
+    var res_star;
+    var res_star2;
 
     // Main
     initHeader();
@@ -298,10 +300,10 @@
 
     function read(res_name) {
         var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "readall", "",
-        function (resp) {
-            var rlt_json = JSOn.parse(resp.result);
-            console.log(rlt_json);
-        });
+            function (resp) {
+                var rlt_json = JSOn.parse(resp.result);
+                console.log(rlt_json);
+            });
     }
     readall();
 
@@ -325,17 +327,17 @@
             var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
             var divNode2 = $("<div></div>").addClass('image');
             var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
-            divNode3.on('click',  function(event) {
-              event.preventDefault();
-              var fakeComments = [{username:"aaa", comments:"bbb"},{username:"ccc", comments:"ddd"}]
-              $('.shabi').modal('show');
-              for (var j = 0; j < fakeComments.length; j++) {
-                var userHeader = $("<h5></h5>").prepend('<img src="images/faketou.png" width="80px" height="50px" />').append(fakeComments[j].username).addClass('text-center');
-                var userComment = $("<p></p>").text(fakeComments[j].comments);
-                $(".shabi .modal-body").append(userHeader).append(userComment).append("<hr>");
+            divNode3.on('click', function (event) {
+                event.preventDefault();
+                var fakeComments = [{ username: "aaa", comments: "bbb" }, { username: "ccc", comments: "ddd" }]
+                $('.shabi').modal('show');
+                for (var j = 0; j < fakeComments.length; j++) {
+                    var userHeader = $("<h5></h5>").prepend('<img src="images/faketou.png" width="80px" height="50px" />').append(fakeComments[j].username).addClass('text-center');
+                    var userComment = $("<p></p>").text(fakeComments[j].comments);
+                    $(".shabi .modal-body").append(userHeader).append(userComment).append("<hr>");
 
-              }
-              /* Act on the event */
+                }
+                /* Act on the event */
             });
             var divNode4 = $("<div></div>").addClass('card').append(divNode3);
             var divNode5 = $("<div data-aos='zoom-in'></div>").addClass('fx-wrap').append(divNode4);
@@ -354,11 +356,31 @@
 
 
     $('#resrating').barrating({
-        theme: 'fontawesome-stars'
+        theme: 'fontawesome-stars',
+        onSelect: function (value, text, event) {
+            if (typeof (event) !== 'undefined') {
+                // rating was selected by a user
+                res_star = value
+            } else {
+                res_star = value
+                // rating was selected programmatically
+                // by calling `set` method
+            }
+        }
     });
 
     $('#resrating2').barrating({
-        theme: 'fontawesome-stars'
+        theme: 'fontawesome-stars',
+        onSelect: function (value, text, event) {
+            if (typeof (event) !== 'undefined') {
+                // rating was selected by a user
+                res_star2 = value
+            } else {
+                res_star2 = value
+                // rating was selected programmatically
+                // by calling `set` method
+            }
+        }
     });
 
     $('#addres').click(function () {
@@ -371,7 +393,18 @@
 
     $('#comment').on('click', function () {
         //todo get data from input form;
-        comment('["大董","back",4]');
+        var res_name = document.getElementById("resname2").value;
+        var comment = document.getElementById("content2").value;
+        var args_str = '["' + res_name + '","' + comment + '",' + res_star+']';
+        comment(args_str);
+    });
+
+    $('#new-comment').on('click', function () {
+        //todo get data from input form;
+        var res_name = document.getElementById("resname").value;
+        var comment = document.getElementById("content").value;
+        var args_str = '["' + res_name + '","' + comment + '",' + res_star + ']';
+        comment(args_str);
     });
 
 })();
