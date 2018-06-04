@@ -2,7 +2,7 @@
 
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
     var result_json = [];
-    
+
     // Main
     initHeader();
     initAnimation();
@@ -272,15 +272,15 @@
     function readall() {
         var fakeJson = [];
         var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "readall", "",
-            function (params) {
-                var rlt_json = JSON.parse(params.result);
+            function (resp) {
+                var rlt_json = JSON.parse(resp.result);
                 for (var key in rlt_json) {
                     console.log(rlt_json[key])
                     console.log(fakeJson)
                     fakeJson.push({
                         "result": {
                             "name": rlt_json[key].name,
-                            "avg_score": rlt_json[key].total / rlt_json[key].comments.length
+                            "avg_score": Math.round(rlt_json[key].total / rlt_json[key].comments.length)
                         }
                     });
                 }
@@ -292,14 +292,21 @@
         var res_name = document.getElementById("resname").value;
         var comment = document.getElementById("content").value;
         var star = document.getElementsByClassName("br-current-rating").value;
-        args_str = '["'+res_name+'","'+comment+'",'+star+']';
+        args_str = '["' + res_name + '","' + comment + '",' + star + ']';
 
         _sendTrans("comment", args_str)
     }
-    readall();
 
+    function read(res_name) {
+        var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "readall", "",
+        function (resp) {
+            var rlt_json = JSOn.parse(resp.result);
+            console.log(rlt_json);
+        });
+    }
+    readall();
     function render(fakeJson) {
-        
+
         for (var i = 0; i < fakeJson.length; i++) {
             var nameNode = $("<p></p>").text(fakeJson[i].result.name);
             var submitNode = $("<button></button>");
@@ -348,7 +355,7 @@
         $('#sidebar').toggleClass('visible');
     });
 
-    $('#comment').on('click',function () {
+    $('#comment').on('click', function () {
         //todo get data from input form;
         comment('["大董","back",4]');
     });
