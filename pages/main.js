@@ -450,6 +450,10 @@
         $('#newResModal').modal('toggle');
     });
 
+      $('#sidebar-btn').on('click', function() {
+        $('#sidebar').toggleClass('visible');
+      });
+
 })();
 
 //search animation
