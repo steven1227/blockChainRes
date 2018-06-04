@@ -185,7 +185,7 @@
         return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
     }
 
-    // api server 
+    // api server
     const host = "https://testnet.nebulas.io";
     const endpoint = "/v1/user";
     const call_api = "/call";
@@ -207,7 +207,7 @@
         var to = dappContactAddress;   //Dapp的合约地址
         var value = "0";
         var callFunction = func_name //调用的函数名称
-        var callArgs = args  //参数格式为参数数组的JSON字符串, 比如'["arg"]','["arg1","arg2]'        
+        var callArgs = args  //参数格式为参数数组的JSON字符串, 比如'["arg"]','["arg1","arg2]'
         var options = {
             //callback 是交易查询服务器地址,
             //callback: NebPay.config.mainnetUrl //在主网查询(默认值)
@@ -268,14 +268,13 @@
             });
     }
 
-
     function readall() {
         var fakeJson = [];
         var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "readall", "",
             function (resp) {
                 var rlt_json = JSON.parse(resp.result);
                 for (var key in rlt_json) {
-                    console.log(rlt_json[key])
+                    //console.log(rlt_json[key])
                     console.log(fakeJson)
                     fakeJson.push({
                         "result": {
@@ -305,6 +304,7 @@
         });
     }
     readall();
+
     function render(fakeJson) {
 
         for (var i = 0; i < fakeJson.length; i++) {
@@ -312,6 +312,7 @@
             var submitNode = $("<button></button>");
             submitNode.text("评价").addClass("btn btn-primary btn-comment");
             submitNode.click(function () {
+                event.stopPropagation();
                 $('#commentModal').modal('toggle');
             });
             var headerNode = $("<header></header>").addClass('clearfix');
@@ -324,6 +325,18 @@
             var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
             var divNode2 = $("<div></div>").addClass('image');
             var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
+            divNode3.on('click',  function(event) {
+              event.preventDefault();
+              var fakeComments = [{username:"aaa", comments:"bbb"},{username:"ccc", comments:"ddd"}]
+              $('.shabi').modal('show');
+              for (var j = 0; j < fakeComments.length; j++) {
+                var userHeader = $("<h5></h5>").prepend('<img src="images/faketou.png" width="80px" height="50px" />').append(fakeComments[j].username).addClass('text-center');
+                var userComment = $("<p></p>").text(fakeComments[j].comments);
+                $(".shabi .modal-body").append(userHeader).append(userComment).append("<hr>");
+
+              }
+              /* Act on the event */
+            });
             var divNode4 = $("<div></div>").addClass('card').append(divNode3);
             var divNode5 = $("<div data-aos='zoom-in'></div>").addClass('fx-wrap').append(divNode4);
             if (i % 3 == 0) {
@@ -338,6 +351,7 @@
             }
         }
     }
+
 
     $('#resrating').barrating({
         theme: 'fontawesome-stars'
@@ -377,6 +391,7 @@ $(document).ready(function () {
         bigAnim = 400,
         animating = false;
 
+
     $(document).on("click", ".search:not(.active)", function () {
         if (animating) return;
         animating = true;
@@ -396,6 +411,7 @@ $(document).ready(function () {
             );
         });
     });
+
 
     $(document).on("click", ".search-close", function () {
         if (animating) return;
@@ -419,3 +435,4 @@ $(document).ready(function () {
     });
 
 });
+window.onload
