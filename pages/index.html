@@ -1,143 +1,147 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="fa-regular.min.css"> -->
-    <link rel="stylesheet" href="font-awesome.min.css">
-       <link rel="stylesheet" href="fontawesome-all.min.css">
-    <link rel="stylesheet" href="fontawesome-stars.css">
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="greensock.js" charset="utf-8"></script>
-    <script src="tweenlite.js" charset="utf-8"></script>
-    <script src="neb.min.js" charset="utf-8"></script>
-    <script src="nebPay.min.js" charset="utf-8"></script>
-    <script src="nebulas.js" charset="utf-8"></script>
-    <script src="account.js" type="text/javascript"></script>
-    <script src="jquery.barrating.min.js" type="text/javascript"></script>
-    <script src="snap.svg-min.js"></script>
-    <title>Comment</title>
-  </head>
-  <body>
-    <div id="large-header" class="large-header">
-      <canvas id="demo-canvas"></canvas>
-      <h1 class="main-title">Restaurant <span class="thin"> Go</span></h1>
-    </div>
 
-      <div id="sidebar">
-        <ul>
-          <li><a href="index.html">主页</a></li>
-          <li><a href="feedback.html">联系我们</a></li>
-        </ul>
-        <div id="sidebar-btn">
-          <span></span>
-          <span></span>
-          <span></span>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="fa-regular.min.css"> -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="fontawesome-all.min.css">
+  <link rel="stylesheet" href="fontawesome-stars.css">
+  <script src="jquery-3.3.1.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="greensock.js" charset="utf-8"></script>
+  <script src="tweenlite.js" charset="utf-8"></script>
+  <script src="neb.min.js" charset="utf-8"></script>
+  <script src="nebPay.min.js" charset="utf-8"></script>
+  <script src="nebulas.js" charset="utf-8"></script>
+  <script src="account.js" type="text/javascript"></script>
+  <script src="jquery.barrating.min.js" type="text/javascript"></script>
+  <script src="snap.svg-min.js"></script>
+  <title>Comment</title>
+</head>
+
+<body>
+  <div id="large-header" class="large-header">
+    <canvas id="demo-canvas"></canvas>
+    <h1 class="main-title">Restaurant
+      <span class="thin"> Go</span>
+    </h1>
+  </div>
+
+  <div id="sidebar">
+    <ul>
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li>
+        <a href="feedback.html">联系我们</a>
+      </li>
+    </ul>
+    <div id="sidebar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+
+  <div class="search">
+    <svg class="search-svg" viewBox="0 0 320 70" data-init="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M197,67 181.21,51.21"
+      data-mid="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M179.5,49.5 179.5,49.5" data-active="M27,3 L293,3 a27,27 0 0,1 0,54 L27,57 a27,27 0 0,1 0,-54 M179.5,49.5 179.5,49.5">
+      <path class="search-svg__path" d="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M197,67 181.21,51.21" />
+    </svg>
+    <input type="text" class="search-input" />
+    <div class="search-close"></div>
+  </div>
+  <div class="cardContainer container">
+    <div class="content" data-aos="zoom-in">
+      <div class="row">
+        <div class="col-md-4 col1">
+        </div>
+        <div class="col-md-4 col2">
+        </div>
+        <div class="col-md-4 col3">
         </div>
       </div>
-
-
-      <div class="search">
-        <svg class="search-svg" viewBox="0 0 320 70" data-init="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M197,67 181.21,51.21" data-mid="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M179.5,49.5 179.5,49.5" data-active="M27,3 L293,3 a27,27 0 0,1 0,54 L27,57 a27,27 0 0,1 0,-54 M179.5,49.5 179.5,49.5">
-          <path class="search-svg__path" d="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M197,67 181.21,51.21" />
-        </svg>
-        <input type="text" class="search-input" />
-        <div class="search-close"></div>
-      </div>
-    <div class="cardContainer container">
-      <div class="content" data-aos="zoom-in">
-            <div class="row" >
-              <div  class="col-md-4 col1">
-              </div>
-              <div  class="col-md-4 col2">
-              </div>
-              <div  class="col-md-4 col3">
-              </div>
-            </div>
-      </div>
     </div>
 
-    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" style="display: inline;" id="exampleModalLongTitle">给餐厅评价</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body"  style="padding-top: 30px">
-                           <div class="form-group row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="resname2">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">星级</label>
-                  <div class="col-sm-10">
-                    <select class="form-control my-1 mr-sm-2" id="resrating2">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </select>
-                  </div>
-                </div>
+  </div>
+  <a href="#" class="float" id="addres">
+    <i class="fa fa-plus my-float"></i>
+  </a>
 
-                <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">评价内容</label>
-                  <div class="col-sm-10">
-                    <textarea type="password" class="form-control" id="content2"></textarea>
-                  </div>
-                </div>
+  <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="display: inline;" id="exampleModalLongTitle">给餐厅评价</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-top: 30px">
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="resname2">
+            </div>
           </div>
-          <div class="modal-footer text-center" style="text-align:center">
-            <button type="button" class="btn btn-info">评价</button>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">星级</label>
+            <div class="col-sm-10">
+              <select class="form-control my-1 mr-sm-2" id="resrating2">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
           </div>
+
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">评价内容</label>
+            <div class="col-sm-10">
+              <textarea type="password" class="form-control" id="content2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer text-center" style="text-align:center">
+          <button type="button" class="btn btn-info">评价</button>
         </div>
       </div>
     </div>
   </div>
 
-    <div class="modal fade" id="newResModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" style="display: inline;" id="exampleModalLongTitle">添加一个新的餐厅</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+  <div class="modal fade" id="newResModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="display: inline;" id="exampleModalLongTitle">添加一个新的餐厅</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-top:30px">
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="resname">
+            </div>
           </div>
-          <div class="modal-body"  style="padding-top:30px">
-               <div class="form-group row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="resname">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">星级</label>
-                  <div class="col-sm-10">
-                    <select class="form-control my-1 mr-sm-2" id="resrating">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">评价内容</label>
-                  <div class="col-sm-10">
-                    <textarea type="password" class="form-control" id="content"></textarea>
-                  </div>
-                </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">星级</label>
+            <div class="col-sm-10">
+              <select class="form-control my-1 mr-sm-2" id="resrating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-group row">
@@ -148,7 +152,7 @@
           </div>
         </div>
         <div class="modal-footer text-center" style="text-align:center">
-          <button type="button" class="btn btn-success">添加</button>
+          <button type="button" class="btn btn-success" id="comment">添加</button>
         </div>
       </div>
     </div>
