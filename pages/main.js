@@ -3,8 +3,8 @@
     $('.fadeMe').hide();
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
     var result_json = [];
-    var res_star;
-    var res_star2;
+    var res_star = 1;
+    var res_star2 = 1;
 
     // Main
     initHeader();
@@ -219,8 +219,11 @@
 
         //发送交易(发起智能合约调用)
         serialNumber = nebPay.call(to, value, callFunction, callArgs, options);
-        console.log(serialNumber)
+        // console.log(serialNumber)
         //设置定时查询交易结果
+
+        $('#newResModal').modal('hide');
+        $('#commentModal').modal('hide');
         intervalQuery = setInterval(function () {
             _funcIntervalQuery();
         }, 10000); //建议查询频率10-15s,因为星云链出块时间为15s,并且查询服务器限制每分钟最多查询10次。
@@ -262,12 +265,13 @@
                 var respObject = JSON.parse(resp)
                 //code==0交易发送成功, status==1交易已被打包上链
                 if (respObject.code === 0 && respObject.data.status === 1) {
-                    console.log('成功');
+                    $.notify('评论成功','success');
                     clearInterval(intervalQuery)    //清除定时查询
                 }
             })
             .catch(function (err) {
                 console.log(err);
+                $.notify('评论失败','danger');
             });
     }
 
