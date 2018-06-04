@@ -13,15 +13,17 @@ Comments.prototype = {
 };
 
 var Restaurant = function (text) {
+
   if (text) {
     var o = JSON.parse(text);
+
     this.name = o.name;
-    this.total_score = o.star;
+    this.total = o.total;
     this.comments = o.comments;
   } else {
     this.name = '';
+    this.total = 0;
     this.comments = [];
-    this.total_score = 0;
   }
 };
 
@@ -57,17 +59,21 @@ RestCommentContract.prototype = {
     var from = Blockchain.transaction.from;
 
     var new_res = new Restaurant();
+    console.warn("[DEBUG:62]" + new_res);
     var restaurant_data = this.data.get(res_name);
-    if (restaurant_data) {
-      new_res = restaurant_data;
-    } else {
+
+    if (!restaurant_data) {
       this.arrayMap.set(this.size, res_name);
       this.size = this.size + 1;
+    } else {
+      new_res = restaurant_data;
     }
+    console.warn("[DEBUG:71]" + new_res);
     new_res.name = res_name;
     new_res.comments.push(new Comments(from, content, star));
-    new_res.total_score = new_res.total_score + star;
+    new_res.total = new_res.total + star;
     this.data.put(res_name, new_res);
+    console.warn("[DEBUG:76]" + new_res);
     return {
       "code": 0
     }
@@ -84,7 +90,9 @@ RestCommentContract.prototype = {
       throw new Error('empty restaurant');
     }
     if (!this.data.get(res_name)) {
-      return rlt  
+      // rlt = this._search(res_name)
+      // return rlt  
+      return {}
     }
     return this.data.get(res_name);
   },
@@ -95,11 +103,12 @@ RestCommentContract.prototype = {
     }
     var restaurant_data = this.data.get(res_name);
     if (!restaurant_data) {
-      rlt = this._search(res_name)
-      if (!rlt) {
-        return {}
-      }
-      restaurant_data = rlt
+      // rlt = this._search(res_name)
+      // if (!rlt) {
+      //   return {}
+      // }
+      // restaurant_data = rlt
+      return {}
     }
     if (restaurant_data.comments.length == 0) {
       return {
@@ -107,10 +116,10 @@ RestCommentContract.prototype = {
         "avg_sorce": 0
       };
     }
-    var avg_score = restaurant_data.total_score / restaurant_data.comments.length
+    var avg_score = restaurant_data.total / restaurant_data.comments.length;
     return {
       "name": restaurant_data.name,
-      "avg_sorce": avg_score
+      "avg_score": avg_score
     };
   },
 
@@ -120,19 +129,21 @@ RestCommentContract.prototype = {
       var key = this.arrayMap.get(i);
       var object = this.data.get(key);
       result[key] = object;
+      console.warn(object.total);
     }
-    return result
+    console.warn("[DEBUF:134]" + result);
+    return result;
   },
 
-  _search: function (res_name) {
-    rlt = {}
-    for (let [key, value] of this.data) {
-      if (key.includes(res_name)) {
-        rlt = value
-        break
-      }
-    }
-    return rlt
-  }
+  // _search: function (res_name) {
+  //   rlt = {}
+  //   for (let [key, value] of this.data) {
+  //     if (key.includes(res_name)) {
+  //       rlt = value
+  //       break
+  //     }
+  //   }
+  //   return rlt
+  // }
 };
 module.exports = RestCommentContract;

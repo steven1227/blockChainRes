@@ -1,7 +1,8 @@
 (function () {
 
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
-
+    var result_json = [];
+    var fakeJson = [];
     // Main
     initHeader();
     initAnimation();
@@ -192,6 +193,7 @@
     const dappContactAddress = "";
     var serialNumber; //交易序列号
     var intervalQuery; //定时查询交易结果
+    var contractAddr = "n1x9PncpHC8P8VPVX83MzMVkL5nt9UmZAhr";
 
     var nebulas = require("nebulas");
     var HttpRequest = require("nebulas").HttpRequest;
@@ -202,7 +204,7 @@
     neb.setRequest(new HttpRequest(host));
     var account = "";
 
-    function sendTrans(func_name, args) {
+    function _sendTrans(func_name, args) {
         var to = dappAddress;   //Dapp的合约地址
         var value = "0";
         var callFunction = func_name //调用的函数名称
@@ -225,8 +227,8 @@
         }, 10000); //建议查询频率10-15s,因为星云链出块时间为15s,并且查询服务器限制每分钟最多查询10次。
     }
 
-    function call(form_addr, to_addr, nonce, gasPrice, gasLimit, func_name, args_str) {
-        var rlt = neb.api.call({
+    function _call(form_addr, to_addr, nonce, gasPrice, gasLimit, func_name, args_str, resp_proc) {
+        neb.api.call({
             chainID: 1,
             from: form_addr,
             to: to_addr,
@@ -239,11 +241,11 @@
                 args: args_str
             }
         }).then(function (tx) {
-            console.log(tx)
+            resp_proc(tx);
         });
     }
 
-    function funcIntervalQuery() {
+    function _funcIntervalQuery() {
 
         var options = {
             goods: {        //商品描述
@@ -269,139 +271,178 @@
                 console.log(err);
             });
     }
-    call("n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", "n1tsVcut2PN9fhmur7CUu61ao4MGou6L9U6", 22, 1000000, 2000000, "readall", "");
-    
-    var result_json = [];
+
+
     // nep.api.call().then(function(resp){
     //     result_json
     // })
-    var fakeJson = [
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, "content": "好吃" }
-                    ]
-                }
-        },
 
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, "content": "好吃" }
-                    ]
-                }
-        },
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
-                    ]
-                }
-        },
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, "content": "好吃" }
-                    ]
-                }
-        },
+    // var fakeJson = [
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 2, "content": "好吃" }
+    //                 ]
+    //             }
+    //     },
 
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, "content": "好吃" }
-                    ]
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, "content": "好吃" }
+    //                 ]
+    //             }
+    //     },
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 3, content: "好吃" }
+    //                 ]
+    //             }
+    //     },
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, "content": "好吃" }
+    //                 ]
+    //             }
+    //     },
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 4, "content": "好吃" }
+    //                 ]
+    //             }
+    //     },
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 3, content: "好吃" }
+    //                 ]
+    //             }
+    //     }
+    //     ,
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
+    //                 ]
+    //             }
+    //     }
+    //     ,
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 2, content: "好吃" }
+    //                 ]
+    //             }
+    //     },
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 4, content: "好吃" }
+    //                 ]
+    //             }
+    //     },
+    //     {
+    //         result:
+    //             {
+    //                 name: "大董",
+    //                 avg_score: 4,
+    //                 comments: [
+    //                     { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 1, content: "好吃" }
+    //                 ]
+    //             }
+    //     }
+    // ];
+    function readall() {
+        var resp = _call("n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", contractAddr, 41, 1000000, 2000000, "readall", "",
+            function (params) {
+                var rlt_json = JSON.parse(params.result);
+                for (var key in rlt_json) {
+                    console.log(rlt_json[key])
+                    console.log(fakeJson)
+                    fakeJson.push({
+                        "result": {
+                            "name": rlt_json[key].name,
+                            "avg_score":rlt_json[key].total/rlt_json[key].comments.length
+                        }
+                    });
                 }
-        },
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
-                    ]
-                }
-        }
-        ,
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
-                    ]
-                }
-        }
-        ,
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
-                    ]
-                }
-        },
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
-                    ]
-                }
-        },
-        {
-            result:
-                {
-                    name: "大董",
-                    comments: [
-                        { author: "n1LzkF3zqzbCK5f5BQD88G3ejYEZaE67gbH", star: 5, content: "好吃" }
-                    ]
-                }
-        }
-    ]
+                render(fakeJson);
+            });
+    }
+    readall();
 
-    for (var i = 0; i < fakeJson.length; i++) {
-        var nameNode = $("<p></p>").text(fakeJson[i].result.name);
-        var submitNode = $("<button></button>");
-        submitNode.text("评价").addClass("btn btn-primary btn-comment");
-        submitNode.click(function () {
-            $('#commentModal').modal('toggle');
-        });
-        var headerNode = $("<header></header>").addClass('clearfix');
-        var labelNode = $("<span></span>");
-        labelNode.text(fakeJson[i].result.comments[0].star).addClass("label label-success labelRating");
-        headerNode.append(labelNode);
-        var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
-        var divNode2 = $("<div></div>").addClass('image');
-        var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
-        var divNode4 = $("<div></div>").addClass('card').append(divNode3);
-        var divNode5 = $("<div data-aos='zoom-in'></div>").addClass('fx-wrap').append(divNode4);
-        if (i % 3 == 0) {
-            divNode2.addClass('im1 ');
-            $(".col1").append(divNode5);
-        } else if (i % 3 == 1) {
-            divNode2.addClass('im2');
-            $(".col2").append(divNode5);
-        } else {
-            divNode2.addClass('im3');
-            $(".col3").append(divNode5);
+    function render(fakeJson) {
+        for (var i = 0; i < fakeJson.length; i++) {
+            var nameNode = $("<p></p>").text(fakeJson[i].result.name);
+            var submitNode = $("<button></button>");
+            submitNode.text("评价").addClass("btn btn-primary btn-comment");
+            submitNode.click(function () {
+                $('#commentModal').modal('toggle');
+            });
+            var headerNode = $("<header></header>").addClass('clearfix');
+            var labelNode = $('<div class="stars-outer"><div class="stars-inner"></div></div>').addClass("labelRating");
+            headerNode.append(labelNode);
+
+
+
+            const starTotal = 5;
+            const starPercentage = (fakeJson[i].result.avg_score / starTotal) * 100;
+            const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+            labelNode.find(".stars-inner").width(starPercentageRounded);
+
+
+
+
+            var divNode1 = $("<div></div>").addClass('text').append(headerNode).append(nameNode).append(submitNode);
+            var divNode2 = $("<div></div>").addClass('image');
+            var divNode3 = $("<div></div>").addClass('front').append(divNode2).append(divNode1);
+            var divNode4 = $("<div></div>").addClass('card').append(divNode3);
+            var divNode5 = $("<div data-aos='zoom-in'></div>").addClass('fx-wrap').append(divNode4);
+            if (i % 3 == 0) {
+                divNode2.addClass('im1 ');
+                $(".col1").append(divNode5);
+            } else if (i % 3 == 1) {
+                divNode2.addClass('im2');
+                $(".col2").append(divNode5);
+            } else {
+                divNode2.addClass('im3');
+                $(".col3").append(divNode5);
+            }
         }
     }
 
-
     $('#resrating').barrating({
+        theme: 'fontawesome-stars'
+    });
+
+    $('#resrating2').barrating({
         theme: 'fontawesome-stars'
     });
 

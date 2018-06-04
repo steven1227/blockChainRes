@@ -49,57 +49,85 @@
       </div>
     </div>
 
-  </div>
-  <a href="#" class="float" id="addres">
-    <i class="fa fa-plus my-float"></i>
-  </a>
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="display: inline;" id="exampleModalLongTitle">给餐厅评价</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"  style="padding-top: 30px">
+                           <div class="form-group row">
+                  <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="resname2">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">星级</label>
+                  <div class="col-sm-10">
+                    <select class="form-control my-1 mr-sm-2" id="resrating2">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
 
-  <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">给餐厅评价</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer text-center" style="text-align:center">
-          <button type="button" class="btn btn-info">评价</button>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">评价内容</label>
+                  <div class="col-sm-10">
+                    <textarea type="password" class="form-control" id="content2"></textarea>
+                  </div>
+                </div>
+          </div>
+          <div class="modal-footer text-center" style="text-align:center">
+            <button type="button" class="btn btn-info">评价</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="modal fade" id="newResModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">添加一个新的餐厅</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="resname">
-            </div>
+    <div class="modal fade" id="newResModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="display: inline;" id="exampleModalLongTitle">添加一个新的餐厅</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">星级</label>
-            <div class="col-sm-10">
-              <select class="form-control my-1 mr-sm-2" id="resrating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
+          <div class="modal-body"  style="padding-top:30px">
+               <div class="form-group row">
+                  <label for="staticEmail" class="col-sm-2 col-form-label">餐厅名称</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="resname">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">星级</label>
+                  <div class="col-sm-10">
+                    <select class="form-control my-1 mr-sm-2" id="resrating">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">评价内容</label>
+                  <div class="col-sm-10">
+                    <textarea type="password" class="form-control" id="content"></textarea>
+                  </div>
+                </div>
           </div>
 
           <div class="form-group row">
