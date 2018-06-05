@@ -367,7 +367,7 @@
               const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
               labelNode.find(".stars-inner").width(starPercentageRounded);
 
-              var userNamae = $("<div>"+fakeComments[j].author+"</div>");
+              var userNamae = $("<div style='display: flex;flex-direction: row;justify-content: space-between;'><span>"+fakeComments[j].author+"</span><span>"+2018+"</span></div>");
               var innerWrapper = $("<div></div>").append(userNamae).append(labelNode).addClass("innerWrapper");
               userHeader.append(innerWrapper);
               var userComment = $("<p style='padding-left: 25px;padding-top: 25px;'></p>").text(fakeComments[j].content);
