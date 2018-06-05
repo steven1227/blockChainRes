@@ -4,6 +4,7 @@ var Comments = function (author, content, star) {
   this.author = author;
   this.star = star;
   this.content = content;
+  this.created_at = new Date().toString();
 };
 
 Comments.prototype = {

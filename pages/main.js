@@ -193,7 +193,7 @@
     const endpoint = "/v1/user";
     const call_api = "/call";
     const send_raw_trans = "/rawtransaction";
-    const dappContactAddress = "n1x9PncpHC8P8VPVX83MzMVkL5nt9UmZAhr";
+    const dappContactAddress = "n1pT35fS1v3UxvvwGLtVPo9EjBqcKe5qGYf";
     var serialNumber; //交易序列号
     var intervalQuery; //定时查询交易结果
 
@@ -294,11 +294,11 @@
             });
     }
 
-
     function read(res_name) {
         var resp = _call(accountAddress, dappContactAddress, 42, 1000000, 2000000, "read", '["' + res_name + '"]',
             function (resp) {
                 var rlt_json = JSON.parse(resp.result);
+                console.log(rlt_json)
                 renderList(rlt_json.comments);
             });
     }
@@ -308,7 +308,7 @@
     readall();
 
     function render(fakeJson) {
-
+        console.log(fakeJson)
         for (var i = 0; i < fakeJson.length; i++) {
             var nameNode = $("<p></p>").text(fakeJson[i].result.name);
             var submitNode = $("<button></button>");
