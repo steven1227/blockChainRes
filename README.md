@@ -1,6 +1,6 @@
 # blockChainRes
 Restaurant comments recorded on blockchain
-- [ ] frontend
-- [ ] neb
+- [x] frontend
+- [x] neb
 - [x] contract
 - [ ] deploy

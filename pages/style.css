@@ -911,9 +911,9 @@ li a:hover{
 
 
         .loading-container { 
-          margin: 40px auto ;
-          margin-top: 30%;
-          margin-bottom: 40%;
+            	 margin-left: auto;
+   		 margin-right: auto;
+    		margin-top: 200px;
         }
 
         .loading {
