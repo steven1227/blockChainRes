@@ -360,14 +360,15 @@
     function renderList(fakeComments){
           $(".shabi .modal-body").empty();
           for (var j = 0; j < fakeComments.length; j++) {
-              var userHeader = $("<div></div>").prepend('<img src="images/faketou.png" width="80px" height="50px" />').addClass('outerwrapper');
+              var avatar_url = "https://avatars.dicebear.com/v2/identicon/" + fakeComments[j].author+".svg";
+              var userHeader = $("<div></div>").prepend('<img src=' + avatar_url+' width="80px" height="50px" />').addClass('outerwrapper');
               var labelNode = $('<div class="stars-outer" style="margin-top: 5px"><div class="stars-inner"></div></div>');
               const starTotal = 5;
               const starPercentage = (fakeComments[j].star / starTotal) * 100;
               const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
               labelNode.find(".stars-inner").width(starPercentageRounded);
 
-              var userNamae = $("<div style='display: flex;flex-direction: row;justify-content: space-between;'><span>"+fakeComments[j].author+"</span><span>"+2018+"</span></div>");
+              var userNamae = $("<div style='display: flex;flex-direction: row;justify-content: space-between;'><span>" + fakeComments[j].author + "</span><span>" + new Date(fakeComments[j].created_at).toLocaleDateString()+"</span></div>");
               var innerWrapper = $("<div></div>").append(userNamae).append(labelNode).addClass("innerWrapper");
               userHeader.append(innerWrapper);
               var userComment = $("<p style='padding-left: 25px;padding-top: 25px;'></p>").text(fakeComments[j].content);
